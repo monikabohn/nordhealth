@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   modules: ['@pinia/nuxt'],
+  app: {
+    baseURL: '/nordhealth-vue/'
+  },
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => tag.startsWith('nord-')
