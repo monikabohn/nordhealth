@@ -42,12 +42,12 @@ const isLoading = ref(false)
 const passwordVisible = ref(false)
 const togglePassword = () => (passwordVisible.value = !passwordVisible.value)
 
-function isValidEmail(email: string): boolean {
+const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
-function isValidPassword(password: string): boolean {
+const isValidPassword = (password: string): boolean => {
   const lengthRequirement = password.length >= 8
   const digitRequirement = /\d/.test(password)
   const specialCharRequirement = /[!@#$%^&*(),.?":{}|<>]/.test(password)

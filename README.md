@@ -2,6 +2,12 @@
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## ⚠️ Requirements
+
+- Node.js **v18 or higher**
+- npm / yarn
+
+
 ## Setup
 
 Make sure to install dependencies:

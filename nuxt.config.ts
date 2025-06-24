@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ['@pinia/nuxt'],
   app: {
-    baseURL: '/nordhealth-vue/'
+    baseURL: '/nordhealth/'
   },
   vue: {
     compilerOptions: {
