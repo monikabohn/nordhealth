@@ -7,8 +7,13 @@
         <nord-input label="Password" v-model="form.password" :type="passwordVisible ? 'text' : 'password'" :error="errors.password" required novalidate expand></nord-input>
         <nord-icon :name="passwordVisible ? 'interface-edit-on' : 'interface-edit-off'" class="product-sign-up__password-icon" @click="togglePassword"/>
       </div>
-      <nord-checkbox label="Send me occasional product updates and announcements" type="checkbox" v-model="form.productUpdates"></nord-checkbox>
-      <nord-button variant="primary" @click="register">Register</nord-button>
+      <nord-checkbox label="Send me occasional product updates and announcements" type="checkbox" v-model="form.productUpdates" aria-label="Allow updates"></nord-checkbox>
+      <nord-button variant="primary" @click="register" :disabled="isLoading">
+        {{ isLoading ? 'Registering...' : 'Register' }}
+        <nord-icon slot="end" v-if="isLoading">
+          <span class="product-sign-up__spinner"></span>
+        </nord-icon>
+      </nord-button>
     </div>
   </div>
 </template>
@@ -33,6 +38,7 @@ const errors = ref<FormErrors>({
   password: ''
 })
 
+const isLoading = ref(false)
 const passwordVisible = ref(false)
 const togglePassword = () => (passwordVisible.value = !passwordVisible.value)
 
@@ -48,7 +54,7 @@ function isValidPassword(password: string): boolean {
   return lengthRequirement && digitRequirement && specialCharRequirement
 }
 
-const register = () => {
+const register = async () => {
   errors.value = { email: '', password: '' }
 
   if (!form.value.email) {
@@ -65,7 +71,13 @@ const register = () => {
   }
 
   if (!errors.value.email && !errors.value.password) {
+    isLoading.value = true
+
+    // Simulate sending request
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
     signUpStore.setEmail(form.value.email)
+    isLoading.value = false
     router.push('/success')
   }
 
@@ -87,6 +99,23 @@ const register = () => {
       top: 38px;
       right: 10px;
       cursor: pointer;
+    }
+
+    &__spinner {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--n-color-text);
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      position: absolute;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
   }
 </style>
